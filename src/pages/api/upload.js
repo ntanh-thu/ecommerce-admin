@@ -1,8 +1,6 @@
 import multiparty from "multiparty";
 import mime from "mime-types";
 import * as Minio from "minio";
-import fs from "fs";
-import { constants } from "fs/promises";
 
 export default async function handle(req, res) {
   // Destination bucket
@@ -28,25 +26,27 @@ export default async function handle(req, res) {
   for (const file of files.file) {
     const ext = file.originalFilename.split(".").pop();
     const fileName = Date.now() + "." + ext;
-    minioClient.fPutObject(
-      bucket,
-      fileName,
-      file.path,
-      {
-        "Content-Type": mime.lookup(file.path),
-      },
-      function (err, objInfo) {
-        if (err) {
-          return console.log(err);
+    await minioClient
+      .fPutObject(
+        bucket,
+        fileName,
+        file.path,
+        {
+          "Content-Type": mime.lookup(file.path),
+        },
+        function (err, objInfo) {
+          if (err) {
+            return console.log(err);
+          }
         }
-      }
-    );
-    const link = `${process.env.MINIO_END_POINT}:${process.env.MINIO_PORT}/${bucket}/${fileName}`;
-    links.push(link);
+      )
+      .then((res) => {
+        const link = `${process.env.MINIO_END_POINT}:${process.env.MINIO_PORT}/${bucket}/${fileName}`;
+        links.push(link);
+      });
   }
   return res.json({ links });
 }
-
 export const config = {
   api: { bodyParser: false },
 };
