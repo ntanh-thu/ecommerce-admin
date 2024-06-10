@@ -1,8 +1,14 @@
 import multiparty from "multiparty";
 import mime from "mime-types";
 import * as Minio from "minio";
+import { mongooseConnect } from "../../../lib/mongooes";
+import { authOption, isAdminRequest } from "./auth/[...nextauth]";
 
 export default async function handle(req, res) {
+  await mongooseConnect();
+
+  await isAdminRequest(req, res);
+
   // Destination bucket
   const bucket = "next-ecommerce";
 

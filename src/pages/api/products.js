@@ -1,9 +1,13 @@
 import { Product } from "../../../models/Products";
 import { mongooseConnect } from "../../../lib/mongooes";
+import { authOption, isAdminRequest } from "./auth/[...nextauth]";
 
 export default async function handle(req, res) {
   const { method } = req;
   await mongooseConnect();
+
+  await isAdminRequest(req, res);
+
   if (method === "GET") {
     if (req.query?.id) {
       res.json(await Product.findOne({ _id: req.query.id }));
