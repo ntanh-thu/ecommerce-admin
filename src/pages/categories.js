@@ -152,7 +152,7 @@ function Categories({ swal }) {
                   placeholder="value, comma separated"
                 />
                 <button
-                  className="btn-default"
+                  className="btn-red"
                   type="button"
                   onClick={() => {
                     removeProperty(i);
@@ -171,7 +171,7 @@ function Categories({ swal }) {
                 setEditedCatogory(null);
                 setName("");
                 setParentCategory("");
-                setProperties([])
+                setProperties([]);
               }}
             >
               Cancel
@@ -202,11 +202,11 @@ function Categories({ swal }) {
                       onClick={() => {
                         editCategory(category);
                       }}
-                      className="btn-primary mr-1"
+                      className="btn-default mr-1"
                     >
                       Edit
                     </button>
-                    <button className="btn-primary" onClick={() => deleteCategory(category)}>
+                    <button className="btn-red" onClick={() => deleteCategory(category)}>
                       Delete
                     </button>
                   </td>
