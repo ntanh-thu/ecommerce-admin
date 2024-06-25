@@ -40,22 +40,25 @@ export default function ProductForm({
     }
     setGoToProduct(true);
   }
+
   if (goToProduct) {
     router.push("/products");
   }
 
+  function getBase64(file, cb) {
+    let reader = new FileReader();
+    reader.addEventListener("load", () => {
+      setImages((prev) => [...prev, reader.result]);
+    });
+    if (file) {
+      reader.readAsDataURL(file[0]);
+    }
+  }
   async function uploadImage(ev) {
     const files = ev.target?.files;
     if (files?.length > 0) {
       setUploading(true);
-      const data = new FormData();
-      for (const file of files) {
-        data.append("file", file);
-      }
-      const res = await axios.post("/api/upload", data);
-      setImages((oldImage) => {
-        return [...oldImage, ...res.data.links];
-      });
+      getBase64(files);
       setUploading(false);
     }
   }
@@ -119,7 +122,7 @@ export default function ProductForm({
           {!!images?.length &&
             images?.map((link) => (
               <div key={link} className="h-24 bg-white p-4 shadow-sm rounded-sm border border-gray-200">
-                <img src={"http://" + link} alt="" className="rounded-lg" />
+                <img src={link} alt="" className="rounded-lg" />
               </div>
             ))}
         </ReactSortable>
