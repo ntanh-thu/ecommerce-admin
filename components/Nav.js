@@ -2,7 +2,7 @@ import { signOut } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import Logo from "./Logo";
-5;
+
 export default function Nav({ show }) {
   const inactivceLink = "flex gap-1 p-1";
   const activceLink = inactivceLink + " text-black rounded-sm bg-highLight";
