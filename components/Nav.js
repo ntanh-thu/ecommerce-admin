@@ -90,7 +90,8 @@ export default function Nav({ show }) {
           </svg>
           Order
         </Link>
-        <Link href={"/settings"} className={pathname.includes("/settings") ? activceLink : inactivceLink}>
+
+        <Link href={"/users"} className={pathname.includes("/users") ? activceLink : inactivceLink}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -106,7 +107,7 @@ export default function Nav({ show }) {
             />
             <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
           </svg>
-          Settings
+          Users
         </Link>
         <button onClick={logout} className={inactivceLink}>
           <svg
