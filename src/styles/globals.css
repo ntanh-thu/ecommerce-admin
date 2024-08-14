@@ -56,3 +56,6 @@ table.basic a {
 .btn-default {
   @apply bg-white text-gray-800 px-4 rounded-sm py-1 border border-gray-200 shadow-sm;
 }
+tr {
+  cursor: pointer;
+}
