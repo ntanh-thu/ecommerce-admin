@@ -24,13 +24,26 @@ export default async function handle(req, res) {
       images,
       category,
       properties,
+      setFeature: false,
     });
     res.json(productDoc);
   }
   if (method === "PUT") {
-    const { _id, title, description, price, images, category, properties } = req.body;
-    const productDoc = await Product.updateOne({ _id }, { title, description, price, images, category, properties });
-    res.json(productDoc);
+    if (req.body?._id) {
+      const { _id, title, description, price, images, category, properties } = req.body;
+      const productDoc = await Product.updateOne({ _id }, { title, description, price, images, category, properties });
+      res.json(productDoc);
+    } else {
+      const { newID, oldID } = req.body;
+      if (oldID) {
+        await Product.updateOne({ _id: oldID }, { setFeature: false });
+        const newFeature = await Product.updateOne({ _id: newID }, { setFeature: true });
+        res.json(newFeature);
+      } else {
+        const newFeature = await Product.updateOne({ _id: newID }, { setFeature: true });
+        res.json(newFeature);
+      }
+    }
   }
   if (method === "DELETE") {
     if (req.query?.id) {
