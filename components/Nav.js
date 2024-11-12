@@ -5,8 +5,8 @@ import Logo from "./Logo";
 
 export default function Nav({ show }) {
   const inactivceLink =
-    "flex gap-[26px] py-[17.5px] pl-[39px] Inter-medium text-lg hover:bg-indigo-100 text-[#B1B1B1] w-full";
-  const activceLink = inactivceLink + " text-[#2D60FF] rounded-sm menu-active";
+    "flex gap-[26px] py-[17.5px] pl-[39px] Inter-medium text-lg hover:bg-indigo-100 hover:text-[#2D60FF] text-[#B1B1B1] w-full";
+  const activceLink = inactivceLink + " !text-[#2D60FF] rounded-sm menu-active";
   const router = useRouter();
   const { pathname } = router;
 
