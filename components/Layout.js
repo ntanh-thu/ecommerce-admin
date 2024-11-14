@@ -41,9 +41,9 @@ export default function Layout({ children }) {
       </div>
       <div className="flex min-h-screen">
         <Nav show={showNav} />
-        <div className="flex-grow">
+        <div className="w-full h-screen bg-[#F5F7FA]">
           <AccountBar />
-          {children}
+          <div className="px-10 py-6">{children}</div>
         </div>
       </div>
     </div>
