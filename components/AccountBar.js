@@ -1,12 +1,16 @@
 import { useSession } from "next-auth/react";
+import { usePathname } from "next/navigation";
+import * as pathName from "../constants/pathName";
+import { pages } from "../constants/pageName";
 
-export default function AccountBar({ className = "" }) {
+export default function AccountBar() {
   const { data: session } = useSession();
+  const pathname = usePathname();
   return (
-    <div className={"text-blue-900 flex justify-end pb-4 " + className}>
-      <div className="flex bg-gray-300 gap-1 text-black rounded-lg over">
-        <img src={session?.user?.image} alt="" className="w-6 h-6" />
-        <span className="px-2">{session?.user?.name}</span>
+    <div className="account-bar">
+      <div>{pages[pathname]}</div>
+      <div className="account-bar-profile">
+        <img src={session?.user?.image} alt="" className="" />
       </div>
     </div>
   );

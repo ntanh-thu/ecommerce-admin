@@ -1,3 +1,7 @@
+:root {
+  --default-font: "Inter", sans-serif;
+}
+
 .lemon-regular {
   font-family: Lemon, serif;
   font-weight: 400;

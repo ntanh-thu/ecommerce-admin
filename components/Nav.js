@@ -2,6 +2,8 @@ import { signOut } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import Logo from "./Logo";
+import * as pathName from "../constants/pathName";
+import { pages } from "../constants/pageName";
 
 export default function Nav({ show }) {
   const inactivceLink =
@@ -9,26 +11,29 @@ export default function Nav({ show }) {
   const activceLink = inactivceLink + " !text-[#2D60FF] rounded-sm menu-active";
   const router = useRouter();
   const { pathname } = router;
+  console.log(pages);
 
   async function logout() {
     await signOut();
-    await router.push("/");
+    await router.push(pathName.HOME);
   }
   return (
-    <aside className={"w-[250px] h-screen transition-all flex flex-col justify-between"}>
+    <aside
+      className={"w-[250px] h-screen transition-all flex flex-col justify-between border-r-[#E6EFF5] border-r-[1px]"}
+    >
       <div>
         <div className="py-[32px]">
           <Logo />
         </div>
         <nav className="flex flex-col">
-          <Link href={"/"} className={pathname === "/" ? activceLink : inactivceLink}>
+          <Link href={pathName.HOME} className={pathname === pathName.HOME ? activceLink : inactivceLink}>
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
               <path d="M11.47 3.841a.75.75 0 0 1 1.06 0l8.69 8.69a.75.75 0 1 0 1.06-1.061l-8.689-8.69a2.25 2.25 0 0 0-3.182 0l-8.69 8.69a.75.75 0 1 0 1.061 1.06l8.69-8.689Z" />
               <path d="m12 5.432 8.159 8.159c.03.03.06.058.091.086v6.198c0 1.035-.84 1.875-1.875 1.875H15a.75.75 0 0 1-.75-.75v-4.5a.75.75 0 0 0-.75-.75h-3a.75.75 0 0 0-.75.75V21a.75.75 0 0 1-.75.75H5.625a1.875 1.875 0 0 1-1.875-1.875v-6.198a2.29 2.29 0 0 0 .091-.086L12 5.432Z" />
             </svg>
-            Dashboard
+            {pages[pathName.HOME]}
           </Link>
-          <Link href={"/products"} className={pathname.includes("/products") ? activceLink : inactivceLink}>
+          <Link href={pathName.PRODUCTS} className={pathname.includes(pathName.PRODUCTS) ? activceLink : inactivceLink}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -43,9 +48,12 @@ export default function Nav({ show }) {
                 d="m20.25 7.5-.625 10.632a2.25 2.25 0 0 1-2.247 2.118H6.622a2.25 2.25 0 0 1-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125Z"
               />
             </svg>
-            Product
+            {pages[pathName.PRODUCTS]}
           </Link>
-          <Link href={"/categories"} className={pathname.includes("/categories") ? activceLink : inactivceLink}>
+          <Link
+            href={pathName.CATEGORIES}
+            className={pathname.includes(pathName.CATEGORIES) ? activceLink : inactivceLink}
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -60,9 +68,9 @@ export default function Nav({ show }) {
                 d="M8.25 6.75h12M8.25 12h12m-12 5.25h12M3.75 6.75h.007v.008H3.75V6.75Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0ZM3.75 12h.007v.008H3.75V12Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm-.375 5.25h.007v.008H3.75v-.008Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z"
               />
             </svg>
-            Categories
+            {pages[pathName.CATEGORIES]}
           </Link>
-          <Link href={"/orders"} className={pathname.includes("/orders") ? activceLink : inactivceLink}>
+          <Link href={pathName.ORDERS} className={pathname.includes(pathName.ORDERS) ? activceLink : inactivceLink}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -77,10 +85,10 @@ export default function Nav({ show }) {
                 d="M3.75 12h16.5m-16.5 3.75h16.5M3.75 19.5h16.5M5.625 4.5h12.75a1.875 1.875 0 0 1 0 3.75H5.625a1.875 1.875 0 0 1 0-3.75Z"
               />
             </svg>
-            Order
+            {pages[pathName.ORDERS]}
           </Link>
 
-          <Link href={"/users"} className={pathname.includes("/users") ? activceLink : inactivceLink}>
+          <Link href={pathName.USERS} className={pathname.includes(pathName.USERS) ? activceLink : inactivceLink}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -96,7 +104,7 @@ export default function Nav({ show }) {
               />
               <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
             </svg>
-            Users
+            {pages[pathName.ORDERS]}
           </Link>
         </nav>
       </div>

@@ -2,16 +2,14 @@ import { useSession, signIn } from "next-auth/react";
 import Nav from "./Nav";
 import { useState } from "react";
 import Logo from "./Logo";
-import { useRouter } from "next/router";
 import AccountBar from "./AccountBar";
 
 export default function Layout({ children }) {
   const [showNav, setShowNav] = useState(false);
-  const route = useRouter();
   const { data: session } = useSession();
   if (!session) {
     return (
-      <div className="bg-bgGray w-screen h-screen flex items-center">
+      <div className="bg-white w-screen h-screen flex items-center">
         <div className="text-center w-full">
           <button
             onClick={() => {
@@ -26,7 +24,7 @@ export default function Layout({ children }) {
     );
   }
   return (
-    <div className="bg-bgGray min-h-screen">
+    <div className="bg-white min-h-screen">
       <div className=" md:hidden flex items-center justify-center p-4">
         <button onClick={() => setShowNav(true)}>
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-6">
@@ -43,8 +41,8 @@ export default function Layout({ children }) {
       </div>
       <div className="flex min-h-screen">
         <Nav show={showNav} />
-        <div className="flex-grow p-4 md:border-l md:border-l-gray-300 ">
-          {route.asPath === "/" ? null : <AccountBar />}
+        <div className="flex-grow">
+          <AccountBar />
           {children}
         </div>
       </div>
