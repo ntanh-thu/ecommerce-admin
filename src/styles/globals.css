@@ -4,22 +4,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Lemon&display=swap");
 @import "./common.css";
 @import "./components.css";
-
-.menu-active {
-  position: relative;
-}
-
-.menu-active::before {
-  content: " ";
-  background-color: #2d60ff;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 6px;
-  height: 100%;
-  border-top-right-radius: 8px;
-  border-bottom-right-radius: 8px;
-}
+@import "./pages/products.css";
 
 img {
   max-height: 100%;
@@ -48,8 +33,7 @@ label {
   @apply bg-primary text-white px-4 rounded-sm py-1 shadow-sm;
 }
 
-.btn-default,
-.btn-red {
+.btn {
   @apply px-4 py-1 rounded-md;
 }
 
@@ -58,7 +42,14 @@ label {
 }
 
 .btn-default {
-  @apply bg-white text-gray-800 px-4 rounded-sm py-1 border border-gray-200 shadow-sm;
+  @apply border shadow-sm;
+  background-color: white;
+  padding: 8px 15px;
+  border-color: #123288;
+  color: #123288;
+  font-size: 15px;
+  font-family: var(--default-font);
+  border-radius: 50px;
 }
 tr {
   cursor: pointer;
