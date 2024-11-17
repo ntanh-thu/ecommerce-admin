@@ -1,6 +1,5 @@
 import { useSession } from "next-auth/react";
 import { usePathname } from "next/navigation";
-import * as pathName from "../constants/pathName";
 import { pages } from "../constants/pageName";
 
 export default function AccountBar() {
