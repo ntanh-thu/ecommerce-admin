@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Layout from "../../components/Layout";
 import axios from "axios";
 import { withSwal } from "react-sweetalert2";
+import CSTable from "../../components/CSTable";
 
 function Categories({ swal }) {
   const [editedCategory, setEditedCatogory] = useState(null);
@@ -9,7 +10,9 @@ function Categories({ swal }) {
   const [parentCategory, setParentCategory] = useState("");
   const [categories, setCategories] = useState([]);
   const [properties, setProperties] = useState([]);
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
+    setLoading(true);
     fetchCategories();
   }, []);
 
@@ -18,11 +21,13 @@ function Categories({ swal }) {
       .get("/api/category")
       .then((res) => {
         setCategories(res.data);
+        setLoading(false);
       })
       .catch((err) => {});
   }
 
   async function saveCategory(ev) {
+    setLoading(true);
     ev.preventDefault();
     const data = {
       name,
@@ -183,37 +188,33 @@ function Categories({ swal }) {
         </div>
       </form>
       {!editedCategory && (
-        <table className="basic mt-4">
-          <thead>
-            <tr>
-              <td>Category Name</td>
-              <td>Parent Category</td>
-              <td></td>
-            </tr>
-          </thead>
-          <tbody>
-            {categories.length > 0 &&
-              categories.map((category) => (
-                <tr>
-                  <td>{category.name}</td>
-                  <td>{category?.parent?.name}</td>
-                  <td>
-                    <button
-                      onClick={() => {
-                        editCategory(category);
-                      }}
-                      className="btn-default mr-1"
-                    >
-                      Edit
-                    </button>
-                    <button className="btn-red" onClick={() => deleteCategory(category)}>
-                      Delete
-                    </button>
-                  </td>
-                </tr>
-              ))}
-          </tbody>
-        </table>
+        <CSTable
+          loading={loading}
+          header={{ name: "Category Name", parent: "Parent Category", actions: "" }}
+          body={categories.map((category) => {
+            console.log(category);
+
+            return {
+              ...category,
+              parent: category.parent ? category.parent.name : "--",
+              actions: (
+                <>
+                  <button
+                    onClick={() => {
+                      editCategory(category);
+                    }}
+                    className="btn-default mr-1"
+                  >
+                    Edit
+                  </button>
+                  <button className="btn-red" onClick={() => deleteCategory(category)}>
+                    Delete
+                  </button>
+                </>
+              ),
+            };
+          })}
+        />
       )}
     </Layout>
   );

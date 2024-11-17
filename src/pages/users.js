@@ -13,7 +13,6 @@ export default function Users() {
       setLoading(false);
     });
   }, []);
-  console.log(users);
 
   return (
     <Layout>
