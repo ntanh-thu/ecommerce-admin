@@ -1,39 +1,33 @@
 import { useEffect, useState } from "react";
 import Layout from "../../components/Layout";
 import axios from "axios";
+import CSTable from "../../components/CSTable";
 
 export default function Users() {
   const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
+    setLoading(true);
     axios.get("/api/users").then((res) => {
       setUsers(res.data);
+      setLoading(false);
     });
   }, []);
+  console.log(users);
+
   return (
     <Layout>
-      <h1>Users</h1>
-      <table className="basic mt-2">
-        <thead>
-          <tr>
-            <td></td>
-            <td>User Name</td>
-            <td>Email</td>
-            <td>Verify</td>
-          </tr>
-        </thead>
-        <tbody>
-          {users?.map((user) => (
-            <tr>
-              <td>
-                <img src={user.image} alt="" className="size-6" />
-              </td>
-              <td>{user.name}</td>
-              <td>{user.email}</td>
-              <td>{user.emailVerified ? user.emailVerified : "--"}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <CSTable
+        loading={loading}
+        header={{ image: "", name: "User Name", email: "Email", emailVerified: "Verify" }}
+        body={users.map((user) => {
+          return {
+            ...user,
+            image: user.image ? <img src={user.image} alt="" className="size-6 rounded-full" /> : "--",
+            emailVerified: <>{user.emailVerified ? user.emailVerified : "--"}</>,
+          };
+        })}
+      />
     </Layout>
   );
 }
