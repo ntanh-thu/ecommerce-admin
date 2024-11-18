@@ -21,9 +21,7 @@ export default function ProductForm({
   const [isUploading, setUploading] = useState(false);
   const [categories, setCategories] = useState([]);
   const [category, setCategory] = useState(assignedCategory || "");
-  const [productProperties, setProductProperties] = useState(
-    assignedProperties || {}
-  );
+  const [productProperties, setProductProperties] = useState(assignedProperties || {});
   const router = useRouter();
 
   useEffect(() => {
@@ -78,14 +76,16 @@ export default function ProductForm({
 
   const properties = (categories, category) => {
     const propertiesToFill = [];
-    if (categories.length > 0 && category) {
+    console.log(categories.length > 0, category.length !== 0);
+
+    console.log(category, categories);
+    if (categories.length > 0 && category.length !== 0) {
       let catInfor = categories.find(({ _id }) => _id === category);
+
       propertiesToFill.push(...catInfor.properties);
 
       if (catInfor?.parent?._id) {
-        const parentCat = categories.find(
-          ({ _id }) => _id === catInfor?.parent?._id
-        );
+        const parentCat = categories.find(({ _id }) => _id === catInfor?.parent?._id);
         propertiesToFill.push(...parentCat.properties);
       }
       return propertiesToFill;
@@ -116,7 +116,7 @@ export default function ProductForm({
             />
           </div>
           <div className="product-form-row-item">
-            <label>Category</label>
+            <label className="cslabel">Category</label>
             <select
               value={category}
               className="csselect"
@@ -134,13 +134,11 @@ export default function ProductForm({
             </select>
           </div>
         </div>
-        <div className="product-form-property-row">
-          {categories.length > 0 &&
-            properties(categories, category).map((p, i) => (
+        {properties(categories, category).length !== 0 && (
+          <div className="product-form-property-row">
+            {properties(categories, category).map((p, i) => (
               <div key={i} className="product-form-property-row-item">
-                <label className="cslabel">
-                  {p.name[0].toUpperCase() + p.name.substring(1)}
-                </label>
+                <label className="cslabel">{p.name[0].toUpperCase() + p.name.substring(1)}</label>
                 <div>
                   <select
                     value={productProperties[p.name]}
@@ -158,63 +156,75 @@ export default function ProductForm({
                 </div>
               </div>
             ))}
-        </div>
-        <label className="cslabel">Photos</label>
-        <div className="mb-2 flex flex-wrap gap-1">
-          <ReactSortable
-            list={images}
-            setList={updateImagesOrder}
-            className="flex flex-wrap gap-1"
-          >
-            {!!images?.length &&
-              images?.map((link, i) => (
-                <div key={i} className="upload-file">
-                  <img src={link} alt="" className="rounded-lg" />
+          </div>
+        )}
+        <div className="product-form-row">
+          <div>
+            <label className="cslabel">Photos</label>
+            <div className="mb-2 flex flex-wrap gap-1">
+              <ReactSortable list={images} setList={updateImagesOrder} className="flex flex-wrap gap-1">
+                {!!images?.length &&
+                  images?.map((link, i) => (
+                    <div key={i} className="upload-file">
+                      <img src={link} alt="" className="rounded-lg" />
+                    </div>
+                  ))}
+              </ReactSortable>
+              {isUploading && (
+                <div className="h-24 flex items-center">
+                  <Spinner />
                 </div>
-              ))}
-          </ReactSortable>
-          {isUploading && (
-            <div className="h-24 flex items-center">
-              <Spinner />
+              )}
+              <label className="upload">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  className="size-6"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5m-13.5-9L12 3m0 0 4.5 4.5M12 3v13.5"
+                  />
+                </svg>
+                <div>Add image</div>
+                <input type="file" className="hidden" onChange={uploadImage} />
+              </label>
             </div>
-          )}
-          <label className="upload">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-              className="size-6"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5m-13.5-9L12 3m0 0 4.5 4.5M12 3v13.5"
-              />
-            </svg>
-            <div>Add image</div>
-            <input type="file" className="hidden" onChange={uploadImage} />
-          </label>
+          </div>
         </div>
-        <label className="cslabel">Description</label>
-        <textarea
-          placeholder="description"
-          className="cstextarea"
-          value={description}
-          onChange={(ev) => setDescription(ev.target.value)}
-        />
-        <label className="cslabel">Price (in USD)</label>
-        <input
-          type="number"
-          placeholder="price"
-          className="csinput"
-          value={price}
-          onChange={(ev) => setPrice(ev.target.value)}
-        />
-        <button className="btn-primary" type="submit">
-          Save
-        </button>
+        <div className="product-form-row">
+          <div>
+            <label className="cslabel">Description</label>
+            <textarea
+              placeholder="description"
+              className="cstextarea"
+              value={description}
+              onChange={(ev) => setDescription(ev.target.value)}
+            />
+          </div>
+        </div>
+        <div>
+          <div>
+            <label className="cslabel">Price (in USD)</label>
+            <input
+              type="number"
+              placeholder="price"
+              className="csinput"
+              value={price}
+              onChange={(ev) => setPrice(ev.target.value)}
+            />
+          </div>
+        </div>
+
+        <div className="product-form-control-row">
+          <button className="csbtn-save" type="submit">
+            Save
+          </button>
+        </div>
       </form>
     </div>
   );

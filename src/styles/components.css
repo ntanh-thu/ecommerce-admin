@@ -135,6 +135,22 @@
   border-radius: 9px;
 }
 
+.csbtn-save {
+  background-color: #1814f3;
+  width: fit-content;
+  height: 50px;
+  padding: 0 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-family: var(--default-font);
+  color: white;
+  border-radius: 15px;
+  max-width: 190px;
+  width: 100%;
+}
+
 .csinput {
   height: 50px;
   border-radius: 15px;
@@ -142,6 +158,7 @@
   line-height: 18px;
   border: 1px solid #dfeaf2;
   margin-bottom: 0;
+  margin-top: 11px;
 }
 .csinput:focus {
   border: 1px solid #dfeaf2;
@@ -154,6 +171,7 @@
   line-height: 18px;
   border: 1px solid #dfeaf2;
   margin-bottom: 0;
+  margin-top: 11px;
 }
 .cslabel {
   font-family: var(--default-font);
@@ -168,4 +186,5 @@
   line-height: 18px;
   border: 1px solid #dfeaf2;
   margin-bottom: 0;
+  margin-top: 11px;
 }
