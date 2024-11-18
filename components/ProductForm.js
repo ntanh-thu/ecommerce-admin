@@ -21,7 +21,9 @@ export default function ProductForm({
   const [isUploading, setUploading] = useState(false);
   const [categories, setCategories] = useState([]);
   const [category, setCategory] = useState(assignedCategory || "");
-  const [productProperties, setProductProperties] = useState(assignedProperties || {});
+  const [productProperties, setProductProperties] = useState(
+    assignedProperties || {}
+  );
   const router = useRouter();
 
   useEffect(() => {
@@ -32,7 +34,14 @@ export default function ProductForm({
 
   async function saveProduct(ev) {
     ev.preventDefault();
-    const data = { title, description, price, images, category, properties: productProperties };
+    const data = {
+      title,
+      description,
+      price,
+      images,
+      category,
+      properties: productProperties,
+    };
     if (_id) {
       await axios.put("/api/products", { ...data, _id });
     } else {
@@ -67,16 +76,23 @@ export default function ProductForm({
     setImages(images);
   };
 
-  const propertiesToFill = [];
-  if (categories.length > 0 && category) {
-    let catInfor = categories.find(({ _id }) => _id === category);
-    propertiesToFill.push(...catInfor.properties);
-    while (catInfor?.parent?._id) {
-      const parentCat = categories.find(({ _id }) => _id === catInfor?.parent?._id);
-      propertiesToFill.push(parentCat.properties);
-      catInfor = parentCat;
+  const properties = (categories, category) => {
+    const propertiesToFill = [];
+    if (categories.length > 0 && category) {
+      let catInfor = categories.find(({ _id }) => _id === category);
+      propertiesToFill.push(...catInfor.properties);
+
+      if (catInfor?.parent?._id) {
+        const parentCat = categories.find(
+          ({ _id }) => _id === catInfor?.parent?._id
+        );
+        propertiesToFill.push(...parentCat.properties);
+      }
+      return propertiesToFill;
+    } else {
+      return [];
     }
-  }
+  };
   function setProductProp(propName, value) {
     setProductProperties((prev) => {
       const newProductPros = { ...prev };
@@ -84,79 +100,122 @@ export default function ProductForm({
       return newProductPros;
     });
   }
+
   return (
-    <form onSubmit={saveProduct}>
-      <label>Product Name</label>
-      <input type="text" placeholder="product name" value={title} onChange={(ev) => setTitle(ev.target.value)} />
-      <label>Category</label>
-      <select
-        value={category}
-        onChange={(ev) => {
-          setCategory(ev.target.value);
-        }}
-      >
-        <option value={0}>Uncategorized</option>
-        {categories.length > 0 && categories.map((c) => <option value={c._id}>{c.name}</option>)}
-      </select>
-      {categories.length > 0 &&
-        propertiesToFill.map((p) => (
-          <div className="">
-            <label>{p.name[0].toUpperCase() + p.name.substring(1)}</label>
-            <div>
-              <select
-                value={productProperties[p.name]}
-                onChange={(ev) => {
-                  setProductProp(p.name, ev.target.value);
-                }}
-              >
-                {p.values.map((v) => (
-                  <option value={v}>{v}</option>
-                ))}
-              </select>
-            </div>
+    <div className="product-form-bg">
+      <form onSubmit={saveProduct} className="product-form">
+        <div className="product-form-row">
+          <div className="product-form-row-item">
+            <label className="cslabel">Product Name</label>
+            <input
+              type="text"
+              placeholder="product name"
+              className="csinput"
+              value={title}
+              onChange={(ev) => setTitle(ev.target.value)}
+            />
           </div>
-        ))}
-      <label>Photos</label>
-      <div className="mb-2 flex flex-wrap gap-1">
-        <ReactSortable list={images} setList={updateImagesOrder} className="flex flex-wrap gap-1">
-          {!!images?.length &&
-            images?.map((link) => (
-              <div key={link} className="h-24 bg-white p-4 shadow-sm rounded-sm border border-gray-200">
-                <img src={link} alt="" className="rounded-lg" />
+          <div className="product-form-row-item">
+            <label>Category</label>
+            <select
+              value={category}
+              className="csselect"
+              onChange={(ev) => {
+                setCategory(ev.target.value);
+              }}
+            >
+              <option value={0}>Uncategorized</option>
+              {categories.length > 0 &&
+                categories.map((c, ci) => (
+                  <option value={c._id} key={ci}>
+                    {c.name}
+                  </option>
+                ))}
+            </select>
+          </div>
+        </div>
+        <div className="product-form-property-row">
+          {categories.length > 0 &&
+            properties(categories, category).map((p, i) => (
+              <div key={i} className="product-form-property-row-item">
+                <label className="cslabel">
+                  {p.name[0].toUpperCase() + p.name.substring(1)}
+                </label>
+                <div>
+                  <select
+                    value={productProperties[p.name]}
+                    className="csselect"
+                    onChange={(ev) => {
+                      setProductProp(p.name, ev.target.value);
+                    }}
+                  >
+                    {p.values.map((v, vi) => (
+                      <option value={v} key={vi}>
+                        {v}
+                      </option>
+                    ))}
+                  </select>
+                </div>
               </div>
             ))}
-        </ReactSortable>
-        {isUploading && (
-          <div className="h-24 flex items-center">
-            <Spinner />
-          </div>
-        )}
-        <label className="w-24 h-24 cursor-pointe text-center gao-1 text-gray-500 rounded-sm flex flex-col text-sm items-center justify-center bg-white shadow-sm border border-primary">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={1.5}
-            stroke="currentColor"
-            className="size-6"
+        </div>
+        <label className="cslabel">Photos</label>
+        <div className="mb-2 flex flex-wrap gap-1">
+          <ReactSortable
+            list={images}
+            setList={updateImagesOrder}
+            className="flex flex-wrap gap-1"
           >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5m-13.5-9L12 3m0 0 4.5 4.5M12 3v13.5"
-            />
-          </svg>
-          <div>Add image</div>
-          <input type="file" className="hidden" onChange={uploadImage} />
-        </label>
-      </div>
-      <label>Description</label>
-      <textarea placeholder="description" value={description} onChange={(ev) => setDescription(ev.target.value)} />
-      <label>Price (in USD)</label>
-      <input type="number" placeholder="price" value={price} onChange={(ev) => setPrice(ev.target.value)} />
-      <button className="btn-primary" type="submit">
-        Save
-      </button>
-    </form>
+            {!!images?.length &&
+              images?.map((link, i) => (
+                <div key={i} className="upload-file">
+                  <img src={link} alt="" className="rounded-lg" />
+                </div>
+              ))}
+          </ReactSortable>
+          {isUploading && (
+            <div className="h-24 flex items-center">
+              <Spinner />
+            </div>
+          )}
+          <label className="upload">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              className="size-6"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5m-13.5-9L12 3m0 0 4.5 4.5M12 3v13.5"
+              />
+            </svg>
+            <div>Add image</div>
+            <input type="file" className="hidden" onChange={uploadImage} />
+          </label>
+        </div>
+        <label className="cslabel">Description</label>
+        <textarea
+          placeholder="description"
+          className="cstextarea"
+          value={description}
+          onChange={(ev) => setDescription(ev.target.value)}
+        />
+        <label className="cslabel">Price (in USD)</label>
+        <input
+          type="number"
+          placeholder="price"
+          className="csinput"
+          value={price}
+          onChange={(ev) => setPrice(ev.target.value)}
+        />
+        <button className="btn-primary" type="submit">
+          Save
+        </button>
+      </form>
+    </div>
   );
 }

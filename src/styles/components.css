@@ -134,3 +134,38 @@
   color: white;
   border-radius: 9px;
 }
+
+.csinput {
+  height: 50px;
+  border-radius: 15px;
+  font-size: 15px;
+  line-height: 18px;
+  border: 1px solid #dfeaf2;
+  margin-bottom: 0;
+}
+.csinput:focus {
+  border: 1px solid #dfeaf2;
+}
+
+.csselect {
+  height: 50px;
+  border-radius: 15px;
+  font-size: 15px;
+  line-height: 18px;
+  border: 1px solid #dfeaf2;
+  margin-bottom: 0;
+}
+.cslabel {
+  font-family: var(--default-font);
+  font-size: 16px;
+  line-height: 19px;
+  color: #000;
+}
+.cstextarea {
+  min-height: 50px;
+  border-radius: 15px;
+  font-size: 15px;
+  line-height: 18px;
+  border: 1px solid #dfeaf2;
+  margin-bottom: 0;
+}
