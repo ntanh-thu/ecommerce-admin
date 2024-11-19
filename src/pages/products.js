@@ -13,19 +13,6 @@ export default function Products() {
     });
   }, []);
 
-  // const onSetFeature = (product) => {
-  //   const { _id } = product;
-  //   axios
-  //     .put("/api/products", {
-  //       newID: _id,
-  //       oldID: feature?._id ? feature._id : null,
-  //     })
-  //     .then((res) => {
-  //       setReload((current) => current + 1);
-  //     })
-  //     .catch((err) => console.log(err));
-  // };
-
   return (
     <Layout>
       <Link className="btn-add" href={"/products/new"}>

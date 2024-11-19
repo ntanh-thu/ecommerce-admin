@@ -5,6 +5,7 @@
 @import "./common.css";
 @import "./components.css";
 @import "./pages/products.css";
+@import "./pages/settings.css";
 
 img {
   max-height: 100%;

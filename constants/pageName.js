@@ -4,6 +4,7 @@ const pages = {
   "/categories": "Categories",
   "/orders": "Order",
   "/users": "Users",
+  "/settings": "Settings",
 };
 
 export { pages };

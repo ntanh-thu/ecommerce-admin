@@ -150,7 +150,9 @@
   max-width: 190px;
   width: 100%;
 }
-
+.csbtn-save:disabled {
+  opacity: 0.5;
+}
 .csinput {
   height: 50px;
   border-radius: 15px;

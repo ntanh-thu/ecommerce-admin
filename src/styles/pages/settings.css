@@ -1,0 +1,11 @@
+.set-feature-section {
+  display: flex;
+  background-color: white;
+  padding: 19px 30px 30px 30px;
+  border-radius: 25px;
+  gap: 29px;
+}
+
+.set-feature-section .csbtn-save {
+  margin-top: 11px;
+}
