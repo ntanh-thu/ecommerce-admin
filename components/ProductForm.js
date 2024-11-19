@@ -22,11 +22,21 @@ export default function ProductForm({
   const [categories, setCategories] = useState([]);
   const [category, setCategory] = useState(assignedCategory || "");
   const [productProperties, setProductProperties] = useState(assignedProperties || {});
+
+  const [messageValidate, setMessageValidate] = useState({
+    title: false,
+    description: false,
+    price: false,
+    images: false,
+    category: false,
+  });
+
   const router = useRouter();
 
   useEffect(() => {
+    const defaultCategory = [{ id: 0, name: "Uncategorized", properties: [] }];
     axios.get("/api/category").then((res) => {
-      setCategories(res.data);
+      setCategories(defaultCategory.concat(res.data));
     });
   }, []);
 
@@ -40,17 +50,53 @@ export default function ProductForm({
       category,
       properties: productProperties,
     };
-    if (_id) {
-      await axios.put("/api/products", { ...data, _id });
-    } else {
-      await axios.post("/api/products", data);
+    if (validateProduct(data)) {
+      if (_id) {
+        await axios.put("/api/products", { ...data, _id });
+      } else {
+        await axios.post("/api/products", data);
+      }
+      setGoToProduct(true);
     }
-    setGoToProduct(true);
   }
 
   if (goToProduct) {
     router.push("/products");
   }
+
+  const validateProduct = (data) => {
+    if (data.title.length === 0) {
+      setMessageValidate((item) => {
+        return { ...item, title: true };
+      });
+      return false;
+    } else if (data.category.length === 0) {
+      setMessageValidate((item) => {
+        return { ...item, category: true };
+      });
+      return false;
+    } else if (data.images.length === 0) {
+      setMessageValidate((item) => {
+        return { ...item, images: true };
+      });
+      return false;
+    } else if (data.description.length === 0) {
+      setMessageValidate((item) => {
+        return { ...item, description: true };
+      });
+      return false;
+    } else if (data.price.length === 0) {
+      setMessageValidate((item) => {
+        return { ...item, price: true };
+      });
+      return false;
+    } else {
+      setMessageValidate((item) => {
+        return { title: false, description: false, images: false, price: false };
+      });
+      return true;
+    }
+  };
 
   function getBase64(file, cb) {
     let reader = new FileReader();
@@ -63,6 +109,9 @@ export default function ProductForm({
   }
   async function uploadImage(ev) {
     const files = ev.target?.files;
+    if (messageValidate.images) {
+      setMessageValidate({ ...messageValidate, images: false });
+    }
     if (files?.length > 0) {
       setUploading(true);
       getBase64(files);
@@ -76,9 +125,7 @@ export default function ProductForm({
 
   const properties = (categories, category) => {
     const propertiesToFill = [];
-    console.log(categories.length > 0, category.length !== 0);
 
-    console.log(category, categories);
     if (categories.length > 0 && category.length !== 0) {
       let catInfor = categories.find(({ _id }) => _id === category);
 
@@ -112,8 +159,14 @@ export default function ProductForm({
               placeholder="product name"
               className="csinput"
               value={title}
-              onChange={(ev) => setTitle(ev.target.value)}
+              onChange={(ev) => {
+                if (messageValidate.title) {
+                  setMessageValidate({ ...messageValidate, title: false });
+                }
+                setTitle(ev.target.value);
+              }}
             />
+            {messageValidate.title ? <div className="cstext-validate">Product name cannot be empty !</div> : null}
           </div>
           <div className="product-form-row-item">
             <label className="cslabel">Category</label>
@@ -121,10 +174,12 @@ export default function ProductForm({
               value={category}
               className="csselect"
               onChange={(ev) => {
+                if (messageValidate.category) {
+                  setMessageValidate({ ...messageValidate, category: false });
+                }
                 setCategory(ev.target.value);
               }}
             >
-              <option value={0}>Uncategorized</option>
               {categories.length > 0 &&
                 categories.map((c, ci) => (
                   <option value={c._id} key={ci}>
@@ -132,6 +187,7 @@ export default function ProductForm({
                   </option>
                 ))}
             </select>
+            {messageValidate.category ? <div className="cstext-validate">Please select a product category.</div> : null}
           </div>
         </div>
         {properties(categories, category).length !== 0 && (
@@ -161,7 +217,7 @@ export default function ProductForm({
         <div className="product-form-row">
           <div>
             <label className="cslabel">Photos</label>
-            <div className="mb-2 flex flex-wrap gap-1">
+            <div className="my-2 flex flex-wrap gap-1">
               <ReactSortable list={images} setList={updateImagesOrder} className="flex flex-wrap gap-1">
                 {!!images?.length &&
                   images?.map((link, i) => (
@@ -194,6 +250,7 @@ export default function ProductForm({
                 <input type="file" className="hidden" onChange={uploadImage} />
               </label>
             </div>
+            {messageValidate.images ? <div className="cstext-validate">Please select a product image.</div> : null}
           </div>
         </div>
         <div className="product-form-row">
@@ -203,8 +260,16 @@ export default function ProductForm({
               placeholder="description"
               className="cstextarea"
               value={description}
-              onChange={(ev) => setDescription(ev.target.value)}
+              onChange={(ev) => {
+                setDescription(ev.target.value);
+                if (messageValidate.description) {
+                  setMessageValidate({ ...messageValidate, description: false });
+                }
+              }}
             />
+            {messageValidate.description ? (
+              <div className="cstext-validate">Product description cannot be empty.</div>
+            ) : null}
           </div>
         </div>
         <div>
@@ -215,8 +280,16 @@ export default function ProductForm({
               placeholder="price"
               className="csinput"
               value={price}
-              onChange={(ev) => setPrice(ev.target.value)}
+              onChange={(ev) => {
+                if (messageValidate.price) {
+                  setMessageValidate({ ...messageValidate, price: false });
+                }
+                setPrice(ev.target.value);
+              }}
             />
+            {messageValidate.price ? (
+              <div className="cstext-validate">Please enter a valid price (greater than 0).</div>
+            ) : null}
           </div>
         </div>
 

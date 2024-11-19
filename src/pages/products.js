@@ -51,10 +51,7 @@ export default function Products() {
             price: <div className="text-[#16DBAA]">{product.price}$</div>,
             action: (
               <div className="action">
-                <Link
-                  className="btn btn-default"
-                  href={"/products/edit/" + product._id}
-                >
+                <Link className="btn btn-default" href={"/products/edit/" + product._id}>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -71,10 +68,7 @@ export default function Products() {
                   </svg>
                   Edit
                 </Link>
-                <Link
-                  className="btn btn-red"
-                  href={"/products/delete/" + product._id}
-                >
+                <Link className="btn btn-red" href={"/products/delete/" + product._id}>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
