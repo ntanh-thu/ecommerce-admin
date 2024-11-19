@@ -36,7 +36,11 @@ export default function ProductForm({
   useEffect(() => {
     const defaultCategory = [{ _id: "0", name: "Uncategorized", properties: [] }];
     axios.get("/api/category").then((res) => {
-      setCategories(defaultCategory.concat(res.data));
+      if (_id) {
+        setCategories(res.data);
+      } else {
+        setCategories(defaultCategory.concat(res.data));
+      }
     });
   }, []);
 
@@ -52,7 +56,7 @@ export default function ProductForm({
     };
     if (validateProduct(data)) {
       if (_id) {
-        await axios.put("/api/products", { ...data, _id });
+        await axios.put("/api/products", { ...data, _id, category: category === "0" ? "" : category });
       } else {
         await axios.post("/api/products", data);
       }
@@ -125,13 +129,9 @@ export default function ProductForm({
 
   const properties = (categories, category) => {
     const propertiesToFill = [];
-
     if (categories.length > 0 && category.length !== 0) {
       let catInfor = categories.find(({ _id }) => _id === category);
-      console.log(catInfor, categories, category);
-
       propertiesToFill.push(...catInfor.properties);
-
       if (catInfor?.parent?._id) {
         const parentCat = categories.find(({ _id }) => _id === catInfor?.parent?._id);
         propertiesToFill.push(...parentCat.properties);
