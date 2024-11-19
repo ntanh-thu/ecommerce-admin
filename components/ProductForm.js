@@ -34,7 +34,7 @@ export default function ProductForm({
   const router = useRouter();
 
   useEffect(() => {
-    const defaultCategory = [{ id: 0, name: "Uncategorized", properties: [] }];
+    const defaultCategory = [{ _id: "0", name: "Uncategorized", properties: [] }];
     axios.get("/api/category").then((res) => {
       setCategories(defaultCategory.concat(res.data));
     });
@@ -128,6 +128,7 @@ export default function ProductForm({
 
     if (categories.length > 0 && category.length !== 0) {
       let catInfor = categories.find(({ _id }) => _id === category);
+      console.log(catInfor, categories, category);
 
       propertiesToFill.push(...catInfor.properties);
 
