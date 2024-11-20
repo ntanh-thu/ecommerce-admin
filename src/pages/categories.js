@@ -107,13 +107,16 @@ function Categories({ swal }) {
   }
   return (
     <Layout>
-      <h1>Categories</h1>
-      <label>{editedCategory ? `Edit category ${editedCategory.name}` : "Create new category"}</label>
-      <form onSubmit={saveCategory}>
-        <div className="flex gap-1">
+      <h1 className="cstext-heading">Categories</h1>
+      <form onSubmit={saveCategory} className="category-form">
+        <label className="cslabel">
+          {editedCategory ? `Edit category ${editedCategory.name}` : "Create new category"}
+        </label>
+        <div className="category-form-item">
           <input
             type="text"
             placeholder="Category name"
+            className="csinput"
             onChange={(ev) => {
               setName(ev.target.value);
             }}
@@ -121,6 +124,7 @@ function Categories({ swal }) {
           />
           <select
             value={parentCategory}
+            className="csselect"
             onChange={(ev) => {
               setParentCategory(ev.target.value);
             }}
@@ -130,18 +134,18 @@ function Categories({ swal }) {
               categories.map((category) => <option value={category._id}>{category.name}</option>)}
           </select>
         </div>
-        <div className="mb-2">
-          <label className="block">Properties</label>
-          <button className="btn-default text-sm mb-2" type="button" onClick={addProperties}>
+        <div className="">
+          <label className="block cslabel">Properties</label>
+          <button className="btn-default text-sm my-2" type="button" onClick={addProperties}>
             Add new property
           </button>
           {properties?.length > 0 &&
             properties.map((property, i) => (
-              <div className="flex gap-1 mb-2" key={i}>
+              <div className="category-form-item" key={i}>
                 <input
                   type="text"
                   value={property.name}
-                  className="mb-0"
+                  className="csinput"
                   onChange={(ev) => {
                     handlePropertyNameChange(i, property, ev.target.value);
                   }}
@@ -150,14 +154,14 @@ function Categories({ swal }) {
                 <input
                   type="text"
                   value={property.values}
-                  className="mb-0"
+                  className="csinput"
                   onChange={(ev) => {
                     handlePropertyValuesChange(i, property, ev.target.value);
                   }}
                   placeholder="value, comma separated"
                 />
                 <button
-                  className="btn-red"
+                  className="btn btn-red"
                   type="button"
                   onClick={() => {
                     removeProperty(i);
@@ -182,7 +186,7 @@ function Categories({ swal }) {
               Cancel
             </button>
           )}
-          <button type="submit" className="btn-primary py-1">
+          <button type="submit" className="py-1 csbtn-save">
             Save
           </button>
         </div>
@@ -198,19 +202,19 @@ function Categories({ swal }) {
               ...category,
               parent: category.parent ? category.parent.name : "--",
               actions: (
-                <>
+                <div className="actions">
                   <button
                     onClick={() => {
                       editCategory(category);
                     }}
-                    className="btn-default mr-1"
+                    className="btn btn-default mr-1"
                   >
                     Edit
                   </button>
-                  <button className="btn-red" onClick={() => deleteCategory(category)}>
+                  <button className="csbtn-red" onClick={() => deleteCategory(category)}>
                     Delete
                   </button>
-                </>
+                </div>
               ),
             };
           })}

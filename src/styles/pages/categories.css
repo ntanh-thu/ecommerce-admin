@@ -1,0 +1,17 @@
+.category-form {
+  background-color: white;
+  padding: 30px;
+  border-radius: 25px;
+  margin-bottom: 20px;
+}
+.category-form-item {
+  display: flex;
+  gap: 29px;
+  margin-bottom: 22px;
+}
+.category-form-item .btn-red {
+  height: 50px;
+  padding: 0 30px;
+  border-radius: 15px;
+  margin-top: 11px;
+}

@@ -153,6 +153,15 @@
 .csbtn-save:disabled {
   opacity: 0.5;
 }
+
+.csbtn-red {
+  background-color: #fecaca;
+  color: #dc2626;
+  padding: 8px 15px;
+  font-size: 15px;
+  font-family: var(--default-font);
+  border-radius: 50px;
+}
 .csinput {
   height: 50px;
   border-radius: 15px;
