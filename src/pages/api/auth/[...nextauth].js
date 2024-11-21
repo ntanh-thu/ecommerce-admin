@@ -5,8 +5,7 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcrypt";
 import { Users } from "@/models/Users";
 import clientPromise from "../../../../lib/mongodb";
-
-const adminEmails = ["ntanhthu.2922@gmail.com", "ntanhthu.156@gmail.com"];
+import { adminEmailList } from "@/constants/admin/admin-mail-list";
 
 export const authOption = {
   session: {
@@ -33,8 +32,6 @@ export const authOption = {
         const { username, password } = credentials;
         const user = await Users.findOne({ username });
         const hashedPassword = bcrypt.compareSync(password, user.password);
-        console.log(hashedPassword);
-
         if (user && hashedPassword) {
           return user;
         } else {
@@ -55,8 +52,6 @@ export const authOption = {
   adapter: MongoDBAdapter(clientPromise),
   callbacks: {
     session: ({ session, token, user }) => {
-      console.log(session, token, user);
-
       session.token = token;
       return session;
     },
@@ -82,7 +77,7 @@ export default NextAuth(authOption);
 
 export async function isAdminRequest(req, res) {
   const session = await getServerSession(req, res, authOption);
-  if (!adminEmails.includes(session?.user?.email)) {
+  if (!adminEmailList.includes(session?.user?.email)) {
     res.status(401);
     res.end();
     throw "not an admin";

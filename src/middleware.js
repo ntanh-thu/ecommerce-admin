@@ -9,13 +9,12 @@ export default withAuth(
   {
     callbacks: {
       authorized: (auth) => {
-        if (auth.token.accessToken) {
+        if (!auth?.token?.accessToken) {
           return false;
         }
-        if (!!auth.token.accessToken && adminEmailList.includes(email)) {
+        if (!!auth.token.accessToken && adminEmailList.includes(auth.token.email)) {
           return true;
         }
-        // return !!token.accessToken;
       },
     },
   }
