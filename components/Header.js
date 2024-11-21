@@ -80,7 +80,6 @@ export default function Header() {
     required: true,
     onUnauthenticated() {},
   });
-  console.log(cartProducts);
 
   return (
     <StyleHeader>

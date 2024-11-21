@@ -25,7 +25,7 @@ export default function SettingsPage() {
       .then((res) => {
         fetchData();
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {});
   };
 
   return (

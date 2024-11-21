@@ -218,8 +218,6 @@ function Categories({ swal }) {
             actions: "",
           }}
           body={categories.map((category) => {
-            console.log(category);
-
             return {
               ...category,
               parent: category.parent ? category.parent.name : "--",

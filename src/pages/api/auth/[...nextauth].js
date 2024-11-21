@@ -33,6 +33,8 @@ export const authOption = {
         const { username, password } = credentials;
         const user = await Users.findOne({ username });
         const hashedPassword = bcrypt.compareSync(password, user.password);
+        console.log(hashedPassword);
+
         if (user && hashedPassword) {
           return user;
         } else {
@@ -47,16 +49,16 @@ export const authOption = {
     GoogleProvider({
       clientId: process.env.GOOGLE_ID,
       clientSecret: process.env.GOOGLE_SECRET,
+      allowDangerousEmailAccountLinking: true,
     }),
   ],
   adapter: MongoDBAdapter(clientPromise),
   callbacks: {
     session: ({ session, token, user }) => {
-      if (adminEmails.includes(session?.user?.email)) {
-        return session;
-      } else {
-        return false;
-      }
+      console.log(session, token, user);
+
+      session.token = token;
+      return session;
     },
     async jwt({ token, user, account, profile }) {
       if (user) {
@@ -66,12 +68,6 @@ export const authOption = {
     },
   },
   pages: {
-    // newUser: "/sign-up",
-    // signIn: "/sign-in",
-    // error: "/error",
-    // signOut: "/auth/signout",
-    // error: "/auth/error", // Error code passed in query string as ?error=
-    // verifyRequest: "/auth/verify-request", // (used for check email message)
     newUser: "/sign-in", // New users will be directed here on first sign in (leave the property out if not of interest)
   },
   theme: {
