@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Layout from "../../../components/admin/Layout";
 import axios from "axios";
 import CSTable from "../../../components/admin/CSTable";
+import Image from "next/image";
 
 export default function Users() {
   const [users, setUsers] = useState([]);
@@ -28,7 +29,13 @@ export default function Users() {
           return {
             ...user,
             image: user.image ? (
-              <img src={user.image} alt="" className="size-6 rounded-full" />
+              <Image
+                src={user.image}
+                alt=""
+                className="rounded-full"
+                width={24}
+                height={24}
+              />
             ) : (
               "--"
             ),

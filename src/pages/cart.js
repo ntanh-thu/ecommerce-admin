@@ -5,6 +5,7 @@ import Header from "@/components/Header";
 import Input from "@/components/Input";
 import Table from "@/components/Table";
 import axios from "axios";
+import Image from "next/image";
 import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
@@ -162,7 +163,12 @@ export default function CartPage() {
                     <tr key={product._id}>
                       <ProductInfoCell>
                         <ProductImageBox>
-                          <img src={product.images[0]} alt="" />
+                          <Image
+                            src={product.images[0]}
+                            alt=""
+                            width={60}
+                            height={60}
+                          />
                         </ProductImageBox>
                         {product.title}
                       </ProductInfoCell>

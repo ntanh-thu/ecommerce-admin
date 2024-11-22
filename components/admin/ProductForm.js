@@ -3,6 +3,7 @@ import axios from "axios";
 import { useRouter } from "next/router";
 import Spinner from "./Spinner";
 import { ReactSortable } from "react-sortablejs";
+import Image from "next/image";
 
 export default function ProductForm({
   _id,
@@ -275,7 +276,13 @@ export default function ProductForm({
                   {!!images?.length &&
                     images?.map((link, i) => (
                       <div key={i} className="upload-file">
-                        <img src={link} alt="" className="rounded-lg" />
+                        <Image
+                          src={link}
+                          alt=""
+                          className="rounded-lg"
+                          height={96}
+                          width={96}
+                        />
                       </div>
                     ))}
                   <label className="upload">

@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import Layout from "@/admin/components/Layout";
+import Layout from "@/components/admin/Layout";
 import { useEffect, useState } from "react";
 import axios from "axios";
 

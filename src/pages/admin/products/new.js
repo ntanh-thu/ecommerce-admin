@@ -1,8 +1,8 @@
 import { useState } from "react";
-import Layout from "../../../../components/Layout";
+import Layout from "@/components/admin/Layout";
 import axios from "axios";
 import { useRouter } from "next/router";
-import ProductForm from "../../../../components/ProductForm";
+import ProductForm from "@/components/admin/ProductForm";
 
 export default function NewProduct() {
   const [title, setTitle] = useState("");

@@ -3,6 +3,7 @@ import Button from "./Button";
 import Link from "next/link";
 import { useContext } from "react";
 import { CartContext } from "./CartContext";
+import Image from "next/image";
 
 const ProductWrapper = styled.div``;
 
@@ -68,7 +69,7 @@ export default function ProductBox({
     <ProductWrapper>
       <WhiteBox href={url}>
         <div>
-          <img src={images?.[0]} alt="" />
+          <Image src={images?.[0]} alt="" />
         </div>
       </WhiteBox>
       <ProductInforBox>

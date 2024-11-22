@@ -5,6 +5,7 @@ import { ButtonLink } from "./ButtonLink";
 import CartIcon from "./icons/Cart";
 import { useContext } from "react";
 import { CartContext } from "./CartContext";
+import Image from "next/image";
 
 const Bg = styled.div`
   background-color: #222;
@@ -74,7 +75,11 @@ export default function Featured({ featureProduct }) {
               <Title>{featureProduct.title}</Title>
               <Desc>{featureProduct.description}</Desc>
               <ButtonsWrapper>
-                <ButtonLink outline={1} white={true} href={"/product/" + featureProduct._id}>
+                <ButtonLink
+                  outline={1}
+                  white={true}
+                  href={"/product/" + featureProduct._id}
+                >
                   Read More
                 </ButtonLink>
                 <Button white onClick={addFeatureToCart}>
@@ -85,7 +90,7 @@ export default function Featured({ featureProduct }) {
             </div>
           </Column>
           <Column>
-            <img src={featureProduct.images[0]} alt="" />
+            <Image src={featureProduct.images[0]} alt="" />
           </Column>
         </ColumnWrapper>
       </Center>
