@@ -14,7 +14,7 @@ export default function DeleteProductPage() {
     axios
       .get("/api/admin/products?id=" + id)
       .then((response) => setProductInfo(response.data));
-  }, []);
+  }, [id]);
   function goBack() {
     router.push("/admin/products");
   }
