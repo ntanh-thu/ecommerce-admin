@@ -6,13 +6,15 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "migrate": "npx migrate-mongo up"
   },
   "dependencies": {
     "@auth/mongodb-adapter": "^3.2.0",
     "axios": "^1.7.2",
     "bcrypt": "^5.1.1",
     "micro": "^10.0.1",
+    "migrate-mongo": "^11.0.0",
     "mime-types": "^2.1.35",
     "minio": "^8.0.0",
     "mongodb": "^6.7.0",
