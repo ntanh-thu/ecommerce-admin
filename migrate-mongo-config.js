@@ -3,17 +3,10 @@
 const config = {
   mongodb: {
     // TODO Change (or review) the url to your MongoDB:
-    url: process.env.MONGODB_URI,
+    url: "mongodb://localhost:27017",
 
     // TODO Change this to your database name:
-    databaseName: "TEST",
-
-    options: {
-      useNewUrlParser: true, // removes a deprecation warning when connecting
-      useUnifiedTopology: true, // removes a deprecating warning when connecting
-      //   connectTimeoutMS: 3600000, // increase connection timeout to 1 hour
-      //   socketTimeoutMS: 3600000, // increase socket timeout to 1 hour
-    },
+    databaseName: "test",
   },
 
   // The migrations dir, can be an relative or absolute path. Only edit this when really necessary.
