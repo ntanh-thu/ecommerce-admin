@@ -39,7 +39,11 @@ export default function ProductImages({ images }) {
       </BigImageWapper>
       <ImageButtons>
         {images.map((image, i) => (
-          <ImageButton active={image === activeImage} key={i} onClick={() => setActiveImage(image)}>
+          <ImageButton
+            active={image === activeImage}
+            key={i}
+            onClick={() => setActiveImage(image)}
+          >
             <Image src={image} alt="" />
           </ImageButton>
         ))}

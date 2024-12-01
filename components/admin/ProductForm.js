@@ -276,13 +276,7 @@ export default function ProductForm({
                   {!!images?.length &&
                     images?.map((link, i) => (
                       <div key={i} className="upload-file">
-                        <Image
-                          src={link}
-                          alt=""
-                          className="rounded-lg"
-                          height={96}
-                          width={96}
-                        />
+                        <img src={link} alt="" className="rounded-lg" />
                       </div>
                     ))}
                   <label className="upload">
