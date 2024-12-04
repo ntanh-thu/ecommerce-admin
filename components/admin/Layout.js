@@ -3,10 +3,14 @@ import Nav from "./Nav";
 import { useState } from "react";
 import Logo from "./Logo";
 import AccountBar from "./AccountBar";
+import { roles } from "../../constants/roles";
+import { useRouter } from "next/navigation";
 
 export default function Layout({ children }) {
   const [showNav, setShowNav] = useState(false);
   const { data: session } = useSession();
+  const router = useRouter();
+
   if (!session) {
     return (
       <div className="bg-white w-screen h-screen flex items-center">
@@ -22,6 +26,8 @@ export default function Layout({ children }) {
         </div>
       </div>
     );
+  } else if (session?.infor?.role !== roles[0]) {
+    router.replace("/");
   }
   return (
     <div className="bg-white min-h-screen">
