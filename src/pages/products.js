@@ -1,7 +1,7 @@
-import Center from "@/components/Center";
-import Header from "@/components/Header";
-import ProductsGrid from "@/components/ProductsGrid";
-import TitleStyled from "@/components/Title";
+import Center from "@/components/front/Center";
+import Header from "@/components/front/Header";
+import ProductsGrid from "@/components/front/ProductsGrid";
+import TitleStyled from "@/components/front/Title";
 import { mongooseConnect } from "@/lib/mongooes";
 import { Product } from "@/models/Products";
 

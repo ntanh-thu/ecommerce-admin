@@ -1,6 +1,6 @@
 import { useState } from "react";
-import OpenEyeIcon from "./icons/OpenEye";
-import SlashEyeIcon from "./icons/CloseEye";
+import OpenEyeIcon from "../icons/OpenEye";
+import SlashEyeIcon from "../icons/CloseEye";
 import styled from "styled-components";
 
 const FieldsetStyle = styled.div``;

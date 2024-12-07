@@ -1,4 +1,4 @@
-import FieldPassword from "@/components/FieldPassword";
+import FieldPassword from "@/components/front/FieldPassword";
 import axios from "axios";
 import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
