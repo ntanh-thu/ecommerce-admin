@@ -2,10 +2,9 @@ import styled from "styled-components";
 import Center from "./Center";
 import Button from "./Button";
 import { ButtonLink } from "./ButtonLink";
-import CartIcon from "./icons/Cart";
+import CartIcon from "../icons/Cart";
 import { useContext } from "react";
 import { CartContext } from "./CartContext";
-import Image from "next/image";
 
 const Bg = styled.div`
   background-color: #222;
@@ -17,6 +16,8 @@ const Title = styled.h1`
   margin: 0;
   font-weight: normal;
   font-size: 3rem;
+  color: #fff;
+  margin-bottom: 1rem;
   @media screen and (min-width: 768px) {
     font-size: 3rem;
   }
@@ -90,7 +91,7 @@ export default function Featured({ featureProduct }) {
             </div>
           </Column>
           <Column>
-            <Image src={featureProduct?.images[0]} alt="" />
+            <img src={featureProduct.images[0]} alt="" />
           </Column>
         </ColumnWrapper>
       </Center>

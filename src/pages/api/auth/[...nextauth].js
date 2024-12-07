@@ -51,8 +51,12 @@ export const authOption = {
   ],
   adapter: MongoDBAdapter(clientPromise),
   callbacks: {
-    session: ({ session, token, user }) => {
+    async session({ session, token, user }) {
+      const { sub } = token;
+      const userData = await Users.findOne({ _id: sub });
+      session.infor = userData;
       session.token = token;
+
       return session;
     },
     async jwt({ token, user, account, profile }) {
@@ -77,9 +81,12 @@ export default NextAuth(authOption);
 
 export async function isAdminRequest(req, res) {
   const session = await getServerSession(req, res, authOption);
-  if (!adminEmailList.includes(session?.user?.email)) {
-    res.status(401);
-    res.end();
-    throw "not an admin";
-  }
+  const userData = await Users.findOne({ _id: session.infor._id });
+  console.log(userData, session, "in nextauth");
+
+  // if (!userData) {
+  //   res.redirect(401, "/");
+  //   res.end();
+  //   throw "not an admin";
+  // }
 }

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import GoogleIcon from "./icons/Google";
+import GoogleIcon from "../icons/Google";
 
 const ButtonStyle = styled.button`
   display: flex;

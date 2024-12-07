@@ -1,4 +1,4 @@
-import { CartContextProvider } from "@/components/CartContext";
+import { CartContextProvider } from "@/components/front/CartContext";
 import { createGlobalStyle } from "styled-components";
 import { SessionProvider, useSession } from "next-auth/react";
 import "../styles/globals.css";

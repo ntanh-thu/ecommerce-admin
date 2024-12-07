@@ -1,9 +1,9 @@
-import Button from "@/components/Button";
-import { CartContext } from "@/components/CartContext";
-import Center from "@/components/Center";
-import Header from "@/components/Header";
-import Input from "@/components/Input";
-import Table from "@/components/Table";
+import Button from "@/components/front/Button";
+import { CartContext } from "@/components/front/CartContext";
+import Center from "@/components/front/Center";
+import Header from "@/components/front/Header";
+import Input from "@/components/front/Input";
+import Table from "@/components/front/Table";
 import axios from "axios";
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -163,12 +163,7 @@ export default function CartPage() {
                     <tr key={product._id}>
                       <ProductInfoCell>
                         <ProductImageBox>
-                          <Image
-                            src={product.images[0]}
-                            alt=""
-                            width={60}
-                            height={60}
-                          />
+                          <img src={product.images[0]} alt="" />
                         </ProductImageBox>
                         {product.title}
                       </ProductInfoCell>

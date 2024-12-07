@@ -29,13 +29,7 @@ export default function Users() {
           return {
             ...user,
             image: user.image ? (
-              <Image
-                src={user.image}
-                alt=""
-                className="rounded-full"
-                width={24}
-                height={24}
-              />
+              <img src={user.image} alt="" className="rounded-full" />
             ) : (
               "--"
             ),

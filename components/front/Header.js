@@ -4,7 +4,7 @@ import Center from "./Center";
 import { useContext, useState } from "react";
 import { CartContext } from "./CartContext";
 import { signIn, signOut, useSession } from "next-auth/react";
-import BarsIcon from "./icons/Bars";
+import BarsIcon from "../icons/Bars";
 
 const StyleHeader = styled.header`
   background-color: #222;

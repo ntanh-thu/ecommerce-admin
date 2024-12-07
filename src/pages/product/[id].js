@@ -1,10 +1,10 @@
-import WhiteBox from "@/components/Box";
-import Button from "@/components/Button";
-import { CartContext } from "@/components/CartContext";
-import Center from "@/components/Center";
-import Header from "@/components/Header";
-import ProductImages from "@/components/ProductImages";
-import TitleStyled from "@/components/Title";
+import WhiteBox from "@/components/front/Box";
+import Button from "@/components/front/Button";
+import { CartContext } from "@/components/front/CartContext";
+import Center from "@/components/front/Center";
+import Header from "@/components/front/Header";
+import ProductImages from "@/components/front/ProductImages";
+import TitleStyled from "@/components/front/Title";
 import { mongooseConnect } from "@/lib/mongooes";
 import { Product } from "@/models/Products";
 import { useContext } from "react";

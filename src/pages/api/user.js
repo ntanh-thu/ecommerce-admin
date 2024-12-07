@@ -14,7 +14,7 @@ export default async function handler(req, res) {
       email: email,
       image: "",
       emailVerified: false,
-      role: "user",
+      role: "USER",
     });
     if (user) {
       return res.status(201).json({ username: user.username });

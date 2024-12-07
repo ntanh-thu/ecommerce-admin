@@ -1,7 +1,6 @@
 import { useSession } from "next-auth/react";
 import { usePathname } from "next/navigation";
 import { pages } from "@/constants/admin/pageName";
-import Image from "next/image";
 
 export default function AccountBar() {
   const { data: session } = useSession();
@@ -19,13 +18,7 @@ export default function AccountBar() {
     <div className="account-bar">
       <div>{pages[sortPage[0]]}</div>
       <div className="account-bar-profile">
-        <Image
-          src={session?.user?.image}
-          alt=""
-          className=""
-          width={60}
-          height={60}
-        />
+        <img src={session?.user?.image} alt="" />
       </div>
     </div>
   );
