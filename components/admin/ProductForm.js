@@ -37,17 +37,20 @@ export default function ProductForm({
   const router = useRouter();
 
   useEffect(() => {
-    const defaultCategory = [
-      { _id: "0", name: "Uncategorized", properties: [] },
-    ];
-    axios.get("/api/admin/category").then((res) => {
-      if (_id) {
-        setCategories(res.data);
-      } else {
-        setCategories(defaultCategory.concat(res.data));
-      }
-    });
-  }, []);
+    const fetchCategory = () => {
+      const defaultCategory = [
+        { _id: "0", name: "Uncategorized", properties: [] },
+      ];
+      axios.get("/api/admin/category").then((res) => {
+        if (_id) {
+          setCategories(res.data);
+        } else {
+          setCategories(defaultCategory.concat(res.data));
+        }
+      });
+    };
+    fetchCategory();
+  }, [_id]);
 
   async function saveProduct(ev) {
     ev.preventDefault();
