@@ -5,6 +5,9 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "start-db":"brew services start mongodb-community@8.0",
+    "stop-db":"brew services stop mongodb-community@8.0",
+    "restart-db":"brew services restart mongodb-community@8.0",
     "start": "next start",
     "lint": "next lint",
     "migrate": "npx migrate-mongo up"
