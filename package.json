@@ -5,9 +5,9 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start-db":"brew services start mongodb-community@8.0",
-    "stop-db":"brew services stop mongodb-community@8.0",
-    "restart-db":"brew services restart mongodb-community@8.0",
+    "start-db": "brew services start mongodb-community@8.0",
+    "stop-db": "brew services stop mongodb-community@8.0",
+    "restart-db": "brew services restart mongodb-community@8.0",
     "start": "next start",
     "lint": "next lint",
     "migrate": "npx migrate-mongo up"
@@ -35,6 +35,7 @@
     "styled-components": "^6.1.11"
   },
   "devDependencies": {
+    "@faker-js/faker": "^9.5.1",
     "eslint": "^8",
     "eslint-config-next": "14.2.3",
     "postcss": "^8",
