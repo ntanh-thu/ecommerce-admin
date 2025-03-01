@@ -8,7 +8,7 @@ export default function HomePage({ featureProduct, newProducts }) {
   return (
     <div>
       <Header />
-      <Featured featureProduct={featureProduct} />
+      {featureProduct?._id ? <Featured featureProduct={featureProduct} /> : null}
       <NewProduct newProducts={newProducts} />
     </div>
   );
@@ -26,7 +26,7 @@ export async function getServerSideProps() {
   });
   return {
     props: {
-      featureProduct: JSON.parse(JSON.stringify(featureProduct))[0],
+      featureProduct: JSON.parse(JSON.stringify(featureProduct))[0] ?? [],
       newProducts: JSON.parse(JSON.stringify(newProducts)),
     },
   };

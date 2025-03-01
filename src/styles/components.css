@@ -12,6 +12,7 @@
   border-bottom: 1px solid #e6eff5;
   background-color: white;
 }
+
 .account-bar .account-bar-page {
 }
 
@@ -46,9 +47,11 @@
   border-radius: 25px;
   padding: 11px 30px;
 }
+
 .cstable {
   width: 100%;
 }
+
 .cstable .cstable-head {
   font-size: 16px;
   color: #718ebf;
@@ -56,13 +59,16 @@
   font-family: var(--default-font);
   border-bottom: 1px solid #e6eff5;
 }
+
 .cstable .cstable-head tr td {
   padding: 11px 0 15px;
   padding-right: 10px;
 }
+
 .cstable .cstable-head tr td:last-child {
   padding-right: 0;
 }
+
 .cstable .cstable-body tr {
   border-bottom: 1px solid #e6eff5;
 }
@@ -77,23 +83,31 @@
   font-size: 16px;
   font-family: var(--default-font);
   padding-right: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100px;
 }
+
 .cstable .cstable-body tr td:last-child {
   padding-right: 0;
 }
 
-.cstable .cstable-body tr td .action {
+.cstable .cstable-body tr td .actions {
   display: flex;
+  justify-content: end;
   gap: 2px;
 }
-.cstable .cstable-body tr td .action button {
+
+.cstable .cstable-body tr td .actions button {
   display: flex;
   align-items: center;
   height: 35px;
   padding: 8px 15px;
   border-radius: 50px;
 }
-.cstable .cstable-body tr td .action a {
+
+.cstable .cstable-body tr td .actions a {
   display: flex;
   align-items: center;
   height: 35px;
@@ -115,6 +129,7 @@
   mask-composite: subtract;
   animation: l3 1s infinite linear;
 }
+
 @keyframes l3 {
   to {
     transform: rotate(1turn);
@@ -150,6 +165,7 @@
   max-width: 190px;
   width: 100%;
 }
+
 .csbtn-save:disabled {
   opacity: 0.5;
 }
@@ -162,6 +178,7 @@
   font-family: var(--default-font);
   border-radius: 50px;
 }
+
 .csinput {
   height: 50px;
   border-radius: 15px;
@@ -171,6 +188,7 @@
   margin-bottom: 0;
   margin-top: 11px;
 }
+
 .csinput:focus {
   border: 1px solid #dfeaf2;
 }
@@ -184,12 +202,14 @@
   margin-bottom: 0;
   margin-top: 11px;
 }
+
 .cslabel {
   font-family: var(--default-font);
   font-size: 16px;
   line-height: 19px;
   color: #000;
 }
+
 .cstextarea {
   min-height: 96px;
   border-radius: 15px;

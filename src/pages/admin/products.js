@@ -14,7 +14,7 @@ export default function Products() {
 
   return (
     <Layout>
-      <Link className="btn-add" href={"/products/new"}>
+      <Link className="btn-add" href={"/admin/products/new"}>
         Add new product
       </Link>
       <div className="spacing"></div>
@@ -26,17 +26,15 @@ export default function Products() {
           action: "",
         }}
         width={{
-          title: "20%",
-          price: "auto",
-          description: "30%",
-          action: "auto",
+          title: "150px",
+          price: "50px",
         }}
         body={products.map((product, i) => {
           return {
             ...product,
             price: <div className="text-[#16DBAA]">{product.price}$</div>,
             action: (
-              <div className="action">
+              <div className="actions">
                 <Link
                   className="btn btn-default"
                   href={"/admin/products/edit/" + product._id}

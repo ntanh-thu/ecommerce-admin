@@ -6,6 +6,9 @@
   gap: 29px;
 }
 
-.set-feature-section .csbtn-save {
-  margin-top: 11px;
+.set-feature-section > select {
+  margin: 0;
+}
+.set-feature-section > .btn-add {
+  text-wrap: nowrap;
 }
