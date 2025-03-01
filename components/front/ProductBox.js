@@ -76,9 +76,9 @@ export default function ProductBox({
         <PriceRow>
           <Price>${price}</Price>
           <Button
-            primary={true}
-            outline={true}
-            block
+            $primary={"true"}
+            $outline={true}
+            $block
             onClick={() => {
               addProduct(_id);
             }}

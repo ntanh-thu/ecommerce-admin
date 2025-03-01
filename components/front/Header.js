@@ -86,7 +86,7 @@ export default function Header() {
       <Center>
         <Wrapper>
           <Logo href={"/"}>Ecommerce</Logo>
-          <StyleNav mobileNavActive={mobileNavActive}>
+          <StyleNav $mobileNavActive={mobileNavActive}>
             <NavLink href={"/"}>Home</NavLink>
             <NavLink href={"/products"}>All Products</NavLink>
             <NavLink href={"/categories"}>Categories</NavLink>

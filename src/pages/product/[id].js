@@ -48,7 +48,7 @@ export default function ProductPage({ product }) {
                 <Price>${product?.price}</Price>
               </div>
               <div>
-                <Button primary onClick={() => addProduct(product?._id)}>
+                <Button $primary onClick={() => addProduct(product?._id)}>
                   Add to Cart
                 </Button>
               </div>

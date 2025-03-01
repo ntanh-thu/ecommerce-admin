@@ -15,21 +15,21 @@ export const ButtonStyle = css`
     margin-right: 5px;
   }
   ${(props) =>
-    props.block &&
+    props.$block &&
     css`
       display: block;
       width: 100%;
     `}
   ${(props) =>
-    props.white &&
-    !props.outline &&
+    props.$white &&
+    !props.$outline &&
     css`
       background-color: #fff;
       color: #000;
     `}
   ${(props) =>
-    props.white &&
-    props.outline &&
+    props.$white &&
+    props.$outline &&
     css`
       background-color: transparent;
       color: #fff;
@@ -37,8 +37,8 @@ export const ButtonStyle = css`
     `}
 
     ${(props) =>
-    props.black &&
-    !props.outline &&
+    props.$black &&
+    !props.$outline &&
     css`
       background-color: #000;
       color: #fff;
@@ -60,15 +60,15 @@ export const ButtonStyle = css`
       color: #fff;
     `}
     ${(props) =>
-    props.primary &&
-    props.outline &&
+    props.$primary &&
+    props.$outline &&
     css`
       background-color: transparent;
       border: 1px solid ${primary};
       color: ${primary};
     `}
     ${(props) =>
-    props.size === "l" &&
+    props.$size === "l" &&
     css`
       font-size: 1.2rem;
       padding: 10px 20px;
