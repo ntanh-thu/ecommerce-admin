@@ -1,10 +1,14 @@
 import styled from "styled-components";
-import Button from "./Button";
+import ButtonIcon from "./ButtonIcon";
 import Link from "next/link";
 import { useContext } from "react";
 import { CartContext } from "./CartContext";
 
-const ProductWrapper = styled.div``;
+const ProductWrapper = styled.div`
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  padding: 10px;
+  border-radius: 5px;
+`;
 
 const WhiteBox = styled(Link)`
   background-color: white;
@@ -75,16 +79,15 @@ export default function ProductBox({
         <Title href={url}>{title}</Title>
         <PriceRow>
           <Price>${price}</Price>
-          <Button
-            $primary={"true"}
-            $outline={true}
-            $block
+          <ButtonIcon
             onClick={() => {
               addProduct(_id);
             }}
           >
-            Add to Cart
-          </Button>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+              <path d="M0 24C0 10.7 10.7 0 24 0L69.5 0c22 0 41.5 12.8 50.6 32l411 0c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3l-288.5 0 5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5L488 336c13.3 0 24 10.7 24 24s-10.7 24-24 24l-288.3 0c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5L24 48C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z" />
+            </svg>
+          </ButtonIcon>
         </PriceRow>
       </ProductInforBox>
     </ProductWrapper>

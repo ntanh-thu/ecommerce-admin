@@ -7,7 +7,7 @@ import { signIn, signOut, useSession } from "next-auth/react";
 import BarsIcon from "../icons/Bars";
 
 const StyleHeader = styled.header`
-  background-color: #222;
+  border-bottom: 1px solid #CACDD8;
 `;
 
 const Logo = styled(Link)`
@@ -24,15 +24,16 @@ const Wrapper = styled.div`
 `;
 
 const StyleNav = styled.nav`
-  display: ${(props) => (props.mobileNavActive ? "block" : "none")};
+  display: ${(props) => (props.mobileNavActive ? "flex" : "none")};
+  width:100%;
   gap: 15px;
   position: fixed;
   top: 0;
   bottom: 0;
   left: 0;
   right: 0;
-  padding: 70px 20px 20px;
-  background-color: #222;
+  padding: 70px 0 0 0;
+  justify-content:space-between;
   @media screen and (min-width: 768px) {
     display: flex;
     position: static;
@@ -42,7 +43,6 @@ const StyleNav = styled.nav`
 
 const NavLink = styled(Link)`
   display: block;
-  color: #aaa;
   text-decoration: none;
   padding: 10px 0;
   @media screen and (min-width: 768px) {
@@ -55,7 +55,6 @@ const NavButton = styled.button`
   width: 30px;
   height: 30px;
   border: 0;
-  color: white;
   cursor: pointer;
   position: relative;
   z-index: 3;
@@ -67,9 +66,7 @@ const NavButton = styled.button`
 const ButtonStyle = styled.button`
   border: none;
   background-color: transparent;
-  color: #aaa;
   cursor: pointer;
-  border: 1px solid #aaa;
   border-radius: 4px;
 `;
 
@@ -85,7 +82,7 @@ export default function Header() {
     <StyleHeader>
       <Center>
         <Wrapper>
-          <Logo href={"/"}>Ecommerce</Logo>
+          {/* <Logo href={"/"}>Ecommerce</Logo> */}
           <StyleNav $mobileNavActive={mobileNavActive}>
             <NavLink href={"/"}>Home</NavLink>
             <NavLink href={"/products"}>All Products</NavLink>
