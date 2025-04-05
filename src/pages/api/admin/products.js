@@ -18,16 +18,20 @@ export default async function handle(req, res) {
   if (method === "POST") {
     const { title, description, price, images, category, properties } =
       req.body;
-    const productDoc = await Product.create({
-      title,
-      description,
-      price,
-      images,
-      category,
-      properties,
-      setFeature: false,
-    });
-    res.json(productDoc);
+    if (title) {
+      const productDoc = await Product.create({
+        title,
+        description,
+        price,
+        images,
+        category,
+        properties,
+        setFeature: false,
+      });
+      res.json(productDoc);
+    } else {
+      res.json(await Product.find({ category: category }));
+    }
   }
   if (method === "PUT") {
     if (req.body?._id) {
