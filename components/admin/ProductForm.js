@@ -3,7 +3,6 @@ import axios from "axios";
 import { useRouter } from "next/router";
 import Spinner from "./Spinner";
 import { ReactSortable } from "react-sortablejs";
-import Image from "next/image";
 
 export default function ProductForm({
   _id,

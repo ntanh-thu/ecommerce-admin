@@ -8,7 +8,14 @@ const ProductSchema = new Schema(
     quantity: { type: Number, require: true },
     images: [{ type: String }],
     category: { type: mongoose.Types.ObjectId, ref: "Category" },
-    properties: { type: Object },
+    brand: { type: mongoose.Types.ObjectId, ref: "Brand" },
+    properties: [
+      {
+        name: String, // 'Màu sắc'
+        key: String, // 'color' (chuẩn hóa)
+        value: String, // 'Đỏ'
+      },
+    ],
     setFeature: { type: Boolean },
   },
   {

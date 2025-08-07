@@ -8,7 +8,9 @@ export default function HomePage({ featureProduct, newProducts }) {
   return (
     <div>
       <Header />
-      {featureProduct?._id ? <Featured featureProduct={featureProduct} /> : null}
+      {featureProduct?._id ? (
+        <Featured featureProduct={featureProduct} />
+      ) : null}
       <NewProduct newProducts={newProducts} />
     </div>
   );
